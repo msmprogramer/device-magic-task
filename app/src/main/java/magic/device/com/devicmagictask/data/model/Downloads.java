@@ -3,13 +3,15 @@ package magic.device.com.devicmagictask.data.model;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
+import java.util.List;
+
 @Root(name = "downloads")
 public class Downloads {
 
     @ElementList(inline = true, required = false)
-    private String[] items;
+    private List<Item> items;
 
-    public String[] getItem ()
+    public List<Item> getItem ()
     {
         return items;
     }
