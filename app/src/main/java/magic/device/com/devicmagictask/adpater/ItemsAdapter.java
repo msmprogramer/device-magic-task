@@ -85,6 +85,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         public void showFailureMessage() {
             textViewItemPhrase.setText("Error!");
         }
+
+
     }
 
 }

@@ -16,6 +16,5 @@ public interface ItemsDetailsContract {
     interface UserActionsListener {
 
         void loadItemById(String itemId);
-
     }
 }
