@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DevicMagicTask</string>
+
+    <string name="txt_loading">Loading....</string>
+    <string name="error_failed_load_items_message">Failed to load items</string>
+
 </resources>

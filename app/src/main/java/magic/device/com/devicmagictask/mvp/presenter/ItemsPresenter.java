@@ -1,6 +1,7 @@
 package magic.device.com.devicmagictask.mvp.presenter;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import magic.device.com.devicmagictask.data.api.ItemsServiceApi;
 import magic.device.com.devicmagictask.data.model.Downloads;
@@ -13,6 +14,8 @@ import retrofit.client.Response;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ItemsPresenter implements ItemsContract.UserActionsListener{
+
+    private static final String TAG = "ItemsPresenter";
 
     private ItemsContract.View itemsView;
 
@@ -28,21 +31,19 @@ public class ItemsPresenter implements ItemsContract.UserActionsListener{
         itemsServiceApi.getItems(new Callback<Downloads>() {
             @Override
             public void success(Downloads downloads, Response response) {
+                Log.d(TAG, "success: "+downloads.getItems().size());
 
                 if (itemsView == null) {
                     return;
                 }
 
-                if (downloads ==  null) {
-                    return;
-                }
-
-                itemsView.showItems(downloads.getItem());
+                itemsView.showItems(downloads.getItems());
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                Log.d(TAG, "failure: "+error.getMessage());
+                itemsView.showFailureMessage();
             }
         });
 

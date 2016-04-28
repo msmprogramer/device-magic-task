@@ -8,11 +8,10 @@ import java.util.List;
 @Root(name = "downloads")
 public class Downloads {
 
-    @ElementList(inline = true, required = false)
-    private List<Item> items;
+    @ElementList(entry = "item", inline = true, required = false)
+    private List<String> items;
 
-    public List<Item> getItem ()
-    {
+    public List<String> getItems () {
         return items;
     }
 }

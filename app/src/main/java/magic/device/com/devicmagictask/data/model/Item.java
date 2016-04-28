@@ -11,4 +11,8 @@ public class Item {
 
     @Element(name = "key", required = false)
     private String key;
+
+    public String getValue() {
+        return value;
+    }
 }

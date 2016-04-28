@@ -39,7 +39,7 @@ public class ItemsDetailsPresenter implements ItemsDetailsContract.UserActionsLi
 
             @Override
             public void failure(RetrofitError error) {
-
+                itemsDetailsView.showFailureMessage();
             }
         });
     }

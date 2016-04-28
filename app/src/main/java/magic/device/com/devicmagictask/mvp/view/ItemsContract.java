@@ -10,7 +10,7 @@ public interface ItemsContract {
 
     interface View {
 
-        void showItems(List<Item> items);
+        void showItems(List<String> items);
 
         void showFailureMessage();
 
