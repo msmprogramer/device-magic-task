@@ -4,7 +4,9 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import magic.device.com.devicmagictask.data.api.ItemsServiceApi;
+import magic.device.com.devicmagictask.data.model.Download;
 import magic.device.com.devicmagictask.data.model.Downloads;
+import magic.device.com.devicmagictask.data.model.Item;
 import magic.device.com.devicmagictask.data.rest.ItemsRestClient;
 import magic.device.com.devicmagictask.mvp.view.ItemsContract;
 import retrofit.Callback;
@@ -37,7 +39,19 @@ public class ItemsPresenter implements ItemsContract.UserActionsListener{
                     return;
                 }
 
-                itemsView.showItems(downloads.getItems());
+                boolean isLastItem = false;
+
+                for (int i = 0; i < downloads.getItems().size(); i++) {
+
+                    String item = downloads.getItems().get(i);
+
+                    if (i == (downloads.getItems().size() -1)) {
+                        isLastItem = true;
+                    }
+
+                    loadItemById(item, isLastItem);
+                }
+
             }
 
             @Override
@@ -47,6 +61,30 @@ public class ItemsPresenter implements ItemsContract.UserActionsListener{
             }
         });
 
+    }
+
+    @Override
+    public void loadItemById(final String itemId, final boolean isLastItem) {
+        itemsServiceApi.getItemById(itemId, new Callback<Download>() {
+            @Override
+            public void success(Download download, Response response) {
+
+                if (itemsView == null) {
+                    return;
+                }
+
+                itemsView.addItemToList(download.getItem());
+
+                if (isLastItem) {
+                    itemsView.hideProgress();
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 
     @Override

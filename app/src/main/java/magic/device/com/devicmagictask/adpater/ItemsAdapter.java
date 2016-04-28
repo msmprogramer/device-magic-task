@@ -12,8 +12,6 @@ import java.util.List;
 
 import magic.device.com.devicmagictask.R;
 import magic.device.com.devicmagictask.data.model.Item;
-import magic.device.com.devicmagictask.mvp.presenter.ItemsDetailsPresenter;
-import magic.device.com.devicmagictask.mvp.view.ItemsDetailsContract;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -37,9 +35,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
     @Override
     public void onBindViewHolder(ItemViewHolder itemViewHolder, int position) {
-        String itemId = items.get(position);
-
-        itemViewHolder.loadItemPhrase(itemId);
+        String itemPhrase = items.get(position);
+        itemViewHolder.textViewItemPhrase.setText(itemPhrase);
     }
 
     public String getItem(int position) {
@@ -48,6 +45,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
     public void replaceData(List<String> items) {
         setList(items);
+        notifyDataSetChanged();
+    }
+    public void addItem(Item item) {
+        items.add(item.getValue());
         notifyDataSetChanged();
     }
 
@@ -60,32 +61,15 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         return items.size();
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder implements ItemsDetailsContract.View {
+    public class ItemViewHolder extends RecyclerView.ViewHolder  {
 
-        private ItemsDetailsPresenter itemsDetailsPresenter;
 
-        private TextView textViewItemPhrase;
+        public TextView textViewItemPhrase;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             textViewItemPhrase = (TextView) itemView.findViewById(R.id.itemPhrase_textView);
-            itemsDetailsPresenter = new ItemsDetailsPresenter(this);
         }
-
-        public void loadItemPhrase(String itemId) {
-            itemsDetailsPresenter.loadItemById(itemId);
-        }
-
-        @Override
-        public void showItem(Item item) {
-            textViewItemPhrase.setText(item.getValue());
-        }
-
-        @Override
-        public void showFailureMessage() {
-            textViewItemPhrase.setText("Error!");
-        }
-
 
     }
 

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class ItemsListFragment extends Fragment implements ItemsContract.View {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        itemsAdapter = new ItemsAdapter(Collections.<String>emptyList());
+        itemsAdapter = new ItemsAdapter(new ArrayList<String>());
 
         itemsPresenter = new ItemsPresenter(this);
     }
@@ -77,9 +78,8 @@ public class ItemsListFragment extends Fragment implements ItemsContract.View {
 
 
     @Override
-    public void showItems(List<String> items) {
-        progressBarLoading.setVisibility(View.GONE);
-        itemsAdapter.replaceData(items);
+    public void addItemToList(Item item) {
+        itemsAdapter.addItem(item);
     }
 
     @Override
@@ -89,5 +89,10 @@ public class ItemsListFragment extends Fragment implements ItemsContract.View {
                 getString(R.string.error_failed_load_items_message),
                 Snackbar.LENGTH_SHORT).
                 show();
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBarLoading.setVisibility(View.GONE);
     }
 }

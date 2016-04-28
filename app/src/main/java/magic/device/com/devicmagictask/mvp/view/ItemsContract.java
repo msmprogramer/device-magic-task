@@ -10,15 +10,18 @@ public interface ItemsContract {
 
     interface View {
 
-        void showItems(List<String> items);
+        void addItemToList(Item item);
 
         void showFailureMessage();
 
+        void hideProgress();
     }
 
     interface UserActionsListener {
 
         void loadItems();
+
+        void loadItemById(String itemId, boolean isLastItem);
 
         void stopPresenter();
     }
