@@ -3,5 +3,6 @@
 
     <string name="txt_loading">Loading....</string>
     <string name="error_failed_load_items_message">Failed to load items</string>
+    <string name="error_failed_load_item_message">Failed to load item</string>
 
 </resources>

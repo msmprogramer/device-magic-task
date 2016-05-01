@@ -33,58 +33,27 @@ public class ItemsPresenter implements ItemsContract.UserActionsListener{
         itemsServiceApi.getItems(new Callback<Downloads>() {
             @Override
             public void success(Downloads downloads, Response response) {
-                Log.d(TAG, "success: "+downloads.getItems().size());
+                Log.d(TAG, "success: " + downloads.getItems().size());
 
                 if (itemsView == null) {
                     return;
                 }
 
-                boolean isLastItem = false;
+                itemsView.hideProgress();
 
-                for (int i = 0; i < downloads.getItems().size(); i++) {
-
-                    String item = downloads.getItems().get(i);
-
-                    if (i == (downloads.getItems().size() -1)) {
-                        isLastItem = true;
-                    }
-
-                    loadItemById(item, isLastItem);
-                }
-
+                itemsView.showItems(downloads.getItems());
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Log.d(TAG, "failure: "+error.getMessage());
+                Log.d(TAG, "failure: " + error.getMessage());
+
+                itemsView.hideProgress();
+
                 itemsView.showFailureMessage();
             }
         });
 
-    }
-
-    @Override
-    public void loadItemById(final String itemId, final boolean isLastItem) {
-        itemsServiceApi.getItemById(itemId, new Callback<Download>() {
-            @Override
-            public void success(Download download, Response response) {
-
-                if (itemsView == null) {
-                    return;
-                }
-
-                itemsView.addItemToList(download.getItem());
-
-                if (isLastItem) {
-                    itemsView.hideProgress();
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-            }
-        });
     }
 
     @Override

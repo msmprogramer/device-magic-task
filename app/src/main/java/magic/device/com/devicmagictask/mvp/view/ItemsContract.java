@@ -10,7 +10,7 @@ public interface ItemsContract {
 
     interface View {
 
-        void addItemToList(Item item);
+        void showItems(List<String> items);
 
         void showFailureMessage();
 
@@ -20,8 +20,6 @@ public interface ItemsContract {
     interface UserActionsListener {
 
         void loadItems();
-
-        void loadItemById(String itemId, boolean isLastItem);
 
         void stopPresenter();
     }

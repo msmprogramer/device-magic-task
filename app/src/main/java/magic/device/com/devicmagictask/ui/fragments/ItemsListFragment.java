@@ -78,8 +78,8 @@ public class ItemsListFragment extends Fragment implements ItemsContract.View {
 
 
     @Override
-    public void addItemToList(Item item) {
-        itemsAdapter.addItem(item);
+    public void showItems(List<String> items) {
+        itemsAdapter.replaceData(items);
     }
 
     @Override
