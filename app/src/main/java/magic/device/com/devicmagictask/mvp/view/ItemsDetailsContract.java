@@ -8,7 +8,7 @@ public interface ItemsDetailsContract {
 
         void showItem(Item item);
 
-        void showFailureMessage();
+        void showFailureMessage(String itemId);
     }
 
     interface UserActionsListener {

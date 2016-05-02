@@ -15,4 +15,8 @@ public class Item {
     public String getValue() {
         return value;
     }
+
+    public String getKey() {
+        return key;
+    }
 }

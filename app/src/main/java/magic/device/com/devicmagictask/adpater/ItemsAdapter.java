@@ -3,12 +3,14 @@ package magic.device.com.devicmagictask.adpater;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.List;
 
 import magic.device.com.devicmagictask.R;
@@ -26,8 +28,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
     private List<String> items;
 
-    private SparseBooleanArray loadedItems = new SparseBooleanArray();
-
+    private HashMap<String, String> loadedItems=new HashMap<>();
 
     public ItemsAdapter(List<String> items) {
         setList(items);
@@ -44,14 +45,15 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
     @Override
     public void onBindViewHolder(ItemViewHolder itemViewHolder, int position) {
-        String itemPhrase = items.get(position);
 
-        if (!loadedItems.get(position)) {
-            itemViewHolder.loadPhrase(itemPhrase);
-            loadedItems.put(position, true);
+        String itemId = items.get(position);
+
+        if (loadedItems.get(itemId) == null) {
+            itemViewHolder.loadPhrase(itemId);
+            Log.d(TAG, "onBindViewHolder: Loading");
         } else {
-            itemViewHolder.textViewItemPhrase.
-                    setText(context.getString(R.string.txt_loading));
+            Log.d(TAG, "onBindViewHolder: loaded");
+            itemViewHolder.textViewItemPhrase.setText(loadedItems.get(itemId));
         }
     }
 
@@ -100,12 +102,18 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         @Override
         public void showItem(Item item) {
             textViewItemPhrase.setText(item.getValue());
+            Log.d(TAG, "showItem: "+ item.getKey());
+            loadedItems.put(item.getKey(), item.getValue());
         }
 
         @Override
-        public void showFailureMessage() {
+        public void showFailureMessage(String itemId) {
             textViewItemPhrase.
                     setText(context.getString(R.string.error_failed_load_item_message));
+
+            loadedItems.put(itemId,
+                    context.getString(R.string.error_failed_load_item_message));
+
         }
     }
 

@@ -24,7 +24,7 @@ public class ItemsDetailsPresenter implements ItemsDetailsContract.UserActionsLi
     }
 
     @Override
-    public void loadItemById(String itemId) {
+    public void loadItemById(final String itemId) {
         itemsServiceApi.getItemById(itemId, new Callback<Download>() {
             @Override
             public void success(Download download, Response response) {
@@ -38,7 +38,7 @@ public class ItemsDetailsPresenter implements ItemsDetailsContract.UserActionsLi
 
             @Override
             public void failure(RetrofitError error) {
-                itemsDetailsView.showFailureMessage();
+                itemsDetailsView.showFailureMessage(itemId);
             }
         });
     }
