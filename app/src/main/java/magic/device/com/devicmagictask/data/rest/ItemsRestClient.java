@@ -21,6 +21,7 @@ public class ItemsRestClient {
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 
+
         itemsServiceApi = restAdapter.create(ItemsServiceApi.class);
     }
 

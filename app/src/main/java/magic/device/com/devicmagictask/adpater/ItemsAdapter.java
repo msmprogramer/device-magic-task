@@ -28,7 +28,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
     private List<String> items;
 
-    private HashMap<String, String> loadedItems=new HashMap<>();
+    private HashMap<String, String> loadedItems = new HashMap<>();
+
+    private SparseBooleanArray loadingItems = new SparseBooleanArray();
 
     public ItemsAdapter(List<String> items) {
         setList(items);
@@ -48,10 +50,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
         String itemId = items.get(position);
 
-        if (loadedItems.get(itemId) == null) {
+        if (loadedItems.get(itemId) == null && !loadingItems.get(position)) {
             itemViewHolder.loadPhrase(itemId);
+            loadingItems.put(position, true);
             Log.d(TAG, "onBindViewHolder: Loading");
-        } else {
+        } else if (loadedItems.get(itemId) != null && loadingItems.get(position)) {
             Log.d(TAG, "onBindViewHolder: loaded");
             itemViewHolder.textViewItemPhrase.setText(loadedItems.get(itemId));
         }

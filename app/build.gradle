@@ -26,7 +26,8 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
     compile "com.google.guava:guava:$rootProject.guavaVersion"
-    compile "com.squareup.retrofit:retrofit:$rootProject.retrofitVersion"
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.google.code.gson:gson:2.6.1'
     compile "com.squareup.okhttp:okhttp:$rootProject.okhttpVersion"
     // simplexml converter
     compile("com.squareup.retrofit:converter-simplexml:$rootProject.retrofitVersion") {
