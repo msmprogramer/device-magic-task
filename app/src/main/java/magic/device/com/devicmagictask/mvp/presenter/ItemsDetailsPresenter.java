@@ -20,7 +20,7 @@ public class ItemsDetailsPresenter implements ItemsDetailsContract.UserActionsLi
 
     public ItemsDetailsPresenter(@NonNull ItemsDetailsContract.View itemsDetailsView) {
         this.itemsDetailsView = checkNotNull(itemsDetailsView);
-        itemsServiceApi = new ItemsRestClient().getService();
+        itemsServiceApi =  ItemsRestClient.getInstance().getService();
     }
 
     @Override

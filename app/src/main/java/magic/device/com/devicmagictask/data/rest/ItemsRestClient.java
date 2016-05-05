@@ -12,12 +12,20 @@ public class ItemsRestClient {
 
     private ItemsServiceApi itemsServiceApi;
 
+    private static ItemsRestClient instance;
 
-    public ItemsRestClient() {
+    public static ItemsRestClient getInstance() {
+        if(instance == null) {
+            instance = new ItemsRestClient();
+        }
+        return instance;
+    }
+
+    private ItemsRestClient() {
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(Constants.BACKEND_API_URL)
                 .setConverter(new SimpleXMLConverter())
-                .setExecutors(Executors.newFixedThreadPool(3), new MainThreadExecutor())
+                .setExecutors(Executors.newFixedThreadPool(5), new MainThreadExecutor())
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 

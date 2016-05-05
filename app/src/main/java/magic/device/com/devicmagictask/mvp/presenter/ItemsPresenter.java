@@ -25,7 +25,7 @@ public class ItemsPresenter implements ItemsContract.UserActionsListener{
 
     public ItemsPresenter(@NonNull ItemsContract.View itemsView) {
         this.itemsView = checkNotNull(itemsView);
-        itemsServiceApi = new ItemsRestClient().getService();
+        itemsServiceApi =  ItemsRestClient.getInstance().getService();
     }
 
     @Override
